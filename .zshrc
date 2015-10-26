@@ -25,14 +25,13 @@ alias ..='cd ..'
 alias ...='cd ../..'
 
 # Git aliases
-alias s='git status'
 alias pull='git pull'
 alias ci='git ci'
 alias lg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'     --abbrev-commit"
 alias add='git add'
-alias st='git stash'
-export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\] \[\033[33;1m\]\w\[\033[m\] (\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)) \$ "
-
+alias st='git status'
+alias stash='git stash'
+export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\] \[\033[33;1m\]\w\[\033[m\] \[\033[32;1m\]\$(git branch 2>/dev/null | grep '^*' | colrm 1 2) \$\[\033[m\] "
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
@@ -61,6 +60,15 @@ function extract() {
      else
          echo "'$1' is not a valid file"
      fi
+}
+
+#Make gif creation easy
+function togif() {
+  if [ -n $1 ] && [ -n $2 ] ; then
+    ffmpeg -i $1 -pix_fmt rgb24 $2
+  else
+    echo "togif <videofile> <output_file.gif>"
+  fi
 }
 
 # set path in prompt
