@@ -1,12 +1,10 @@
 " enbale syntax highlighting
 filetype plugin indent on
 
-syntax enable
-colorscheme molokai
-set background=dark
-
-" set encoding to utf-8
-set enc=utf-8
+syntax on
+set nocompatible                " be iMproved, required
+filetype off                    " required
+set backspace=indent,eol,start  " Fix the backspace problem in osx
 
 " set line number
 set number
@@ -20,8 +18,3 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-
-call plug#begin('~/.vim/plugged')
-Plug 'scrooloose/nerdtree'
-call plug#end()
-map <C-n> :NerdTreeToggle<CR>
