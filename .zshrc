@@ -31,7 +31,6 @@ alias lg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %
 alias add='git add'
 alias st='git status'
 alias stash='git stash'
-export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\] \[\033[33;1m\]\w\[\033[m\] \[\033[32;1m\]\$(git branch 2>/dev/null | grep '^*' | colrm 1 2) \$\[\033[m\] "
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
@@ -72,6 +71,4 @@ function togif() {
 }
 
 # set path in prompt
-setopt PROMPT_SUBST
-PROMPT='%n@%m:%~$'
 #source ~/.git-completion.bash
