@@ -9,6 +9,10 @@ My Setup -
 - Vscode for CPP coding
 - IntelliJ for Java coding 
 - lazyvim / neovim
+    + Copy/Paste issues - https://github.com/ibhagwan/smartyank.nvim
+    + Everything that comes with Lazy !
+    + Build from source to install
+    + Have rust isntalled as cargo can install bunch of stuff nicely (like ripgrep/fzf/etc)
 - Better tmux alternative - https://zellij.dev/ 
     + nicer defaults (mouse scrols, search, etc)
     + shortcuts displayed at the bottom (Helps when its hard to remember the shortcuts)
