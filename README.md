@@ -18,7 +18,7 @@ My Setup -
     + shortcuts displayed at the bottom (Helps when its hard to remember the shortcuts)
 
 - C/C++ setup
-   # This seems required to make clangd not just show 'too many errors' - don't
+   This seems required to make clangd not just show 'too many errors' - don't
 ```  
 ----
 $ cat .config/clangd/config.yaml
