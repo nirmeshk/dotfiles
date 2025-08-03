@@ -17,8 +17,16 @@ My Setup -
     + nicer defaults (mouse scrols, search, etc)
     + shortcuts displayed at the bottom (Helps when its hard to remember the shortcuts)
 
-
-
+- C/C++ setup
+   # This seems required to make clangd not just show 'too many errors' - don't
+```  
+----
+$ cat .config/clangd/config.yaml
+CompileFlags:
+  Add: -ferror-limit=100
+----
+```
+- Use Bear for the non cmake builds
 
 ## Utils / Shortcuts
 
