@@ -60,10 +60,6 @@ cargo install tex-fmt
         "name": "latexmk 🔃",
         "tools": ["latexmk"]
         },
-        //{
-        //    "name": "pdflatex ➞ bibtex ➞ pdflatex × 2",
-        //    "tools": ["pdflatex", "bibtex", "pdflatex", "pdflatex"]
-        //},
         {
             "name": "LuaLaTeX ⚙️",
             "tools": ["lualatex"]
@@ -73,10 +69,6 @@ cargo install tex-fmt
             "name": "LuaLaTeX ➞ bibtex ➞ LuaLaTeX × 2",
             "tools": ["lualatex", "bibtex", "lualatex", "lualatex"]
         }
-        //{
-        //    "name": "pdflatex",
-        //    "tools": ["pdflatex"]
-        //}
     ],
     "latex-workshop.latex.outDir": "%DIR%",
     "latex-workshop.view.pdf.viewer": "tab",    
