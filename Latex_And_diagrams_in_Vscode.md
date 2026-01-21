@@ -83,5 +83,96 @@ cargo install tex-fmt
 - You can now build and preview the doc
 - **Auto format** - Select tex, right click -> "Format document With" -> LateX workshop
 
-## Diagrams
+# LAtex with remote linux setup
+
+LuaLaTeX Setup on Amazon Linux 2
+
+## Option 1: Docker (Recommended for Linux)
+
+Uses TeX Live 2025 via Docker — no system package conflicts.
+
+### Prerequisites
+```bash
+docker --version  # Ensure Docker is installed
+```
+
+### Setup
+
+1. Pull the TeX Live image:
+```bash
+docker pull texlive/texlive
+```
+
+2. Create wrapper script at `~/bin/lualatex-docker`:
+```bash
+#!/bin/bash
+# Wrapper for lualatex via Docker
+# Usage: lualatex-docker [--workspace=DIR] [lualatex args...] file.tex
+
+WORKSPACE=""
+ARGS=()
+
+for arg in "$@"; do
+    if [[ "$arg" == --workspace=* ]]; then
+        WORKSPACE="${arg#--workspace=}"
+    else
+        ARGS+=("$arg")
+    fi
+done
+
+TEXFILE="${ARGS[-1]}"
+LATEXARGS=("${ARGS[@]:0:${#ARGS[@]}-1}")
+
+if [[ -n "$WORKSPACE" && -d "$WORKSPACE" ]]; then
+    TEXFILE=$(realpath "$TEXFILE")
+    RELPATH="${TEXFILE#$WORKSPACE/}"
+    TEXDIR=$(dirname "$TEXFILE")
+    docker run --rm -v "$WORKSPACE:/workdir" -w "/workdir/$(dirname "$RELPATH")" texlive/texlive lualatex "${LATEXARGS[@]}" "$(basename "$TEXFILE")"
+    chown $(id -u):$(id -g) "$TEXDIR"/*.pdf "$TEXDIR"/*.log "$TEXDIR"/*.aux "$TEXDIR"/*.synctex.gz "$TEXDIR"/*.out "$TEXDIR"/*.toc 2>/dev/null
+else
+    TEXFILE=$(realpath "$TEXFILE")
+    TEXDIR=$(dirname "$TEXFILE")
+    MOUNTDIR=$(dirname "$(dirname "$TEXDIR")")
+    RELDIR=${TEXDIR#$MOUNTDIR/}
+    docker run --rm -v "$MOUNTDIR:/workdir" -w "/workdir/$RELDIR" texlive/texlive lualatex "${LATEXARGS[@]}" "$(basename "$TEXFILE")"
+    chown $(id -u):$(id -g) "$TEXDIR"/*.pdf "$TEXDIR"/*.log "$TEXDIR"/*.aux "$TEXDIR"/*.synctex.gz "$TEXDIR"/*.out "$TEXDIR"/*.toc 2>/dev/null
+fi
+```
+
+3. Make executable:
+```bash
+chmod +x ~/bin/lualatex-docker
+```
+
+4. Configure VS Code LaTeX Workshop:
+
+   For VS Code Remote SSH, edit the **remote machine settings**:
+   - Open VS Code connected to remote
+   - Press `Ctrl+Shift+P` → "Preferences: Open Remote Settings (JSON)"
+   - Or directly edit: `~/.vscode-server/data/Machine/settings.json`
+
+   Add:
+```json
+{
+  "latex-workshop.latex.tools": [
+    {
+      "name": "lualatex",
+      "command": "/home/YOUR_USER/bin/lualatex-docker",
+      "args": ["--workspace=%WORKSPACE_FOLDER%", "-synctex=1", "-interaction=nonstopmode", "-file-line-error", "%DOC%"]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {"name": "LuaLaTeX", "tools": ["lualatex"]}
+  ]
+}
+```
+
+Note: `docker.enabled` doesn't work with VS Code Remote SSH — the wrapper script is required.
+
+## Date
+2026-01-21
+
+
+
+# Diagrams
 - For diagrams, combine it with https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor , to draw your diagrams in excallidraw , locally.
