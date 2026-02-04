@@ -6,6 +6,7 @@ My Setup -
 - ghostly or fish for terminal 
 - fd (https://github.com/sharkdp/fd) for finding files in current directory
 - Ripgrep - https://github.com/BurntSushi/ripgrep as alternate to grep
+- Even better is rip grep all -  https://github.com/phiresky/ripgrep-all -  `cargo install --locked ripgrep_all` 
 - Vscode for CPP coding
 - IntelliJ for Java coding 
 - lazyvim / neovim
